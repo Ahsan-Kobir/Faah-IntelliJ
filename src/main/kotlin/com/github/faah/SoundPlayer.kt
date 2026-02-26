@@ -1,0 +1,36 @@
+package com.github.faah
+
+import com.intellij.openapi.application.ApplicationManager
+import javazoom.jl.player.Player
+import java.awt.Toolkit
+
+object SoundPlayer {
+
+    private const val DEBOUNCE_MS = 2000L
+
+    @Volatile
+    private var lastPlayTime = 0L
+
+    fun playAlert() {
+        val now = System.currentTimeMillis()
+        if (now - lastPlayTime < DEBOUNCE_MS) return
+        lastPlayTime = now
+
+        ApplicationManager.getApplication().executeOnPooledThread {
+            try {
+                playFromFile()
+            } catch (e: Exception) {
+                Toolkit.getDefaultToolkit().beep()
+            }
+        }
+    }
+
+    private fun playFromFile() {
+        val stream = SoundPlayer::class.java.getResourceAsStream("/sounds/fahhh.mp3")
+            ?: throw IllegalStateException("fahhh.mp3 not found in resources")
+
+        val player = Player(stream)
+        player.play()
+        player.close()
+    }
+}

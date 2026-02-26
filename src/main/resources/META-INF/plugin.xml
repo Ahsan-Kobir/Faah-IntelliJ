@@ -1,0 +1,41 @@
+<idea-plugin>
+    <id>com.github.faah</id>
+    <name>Faah</name>
+    <vendor>Faah</vendor>
+    <description>Plays an alert sound when exceptions are detected in any console, terminal, or Logcat output.</description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+
+        <!-- Singleton service holding the enabled flag and exception pattern -->
+        <applicationService
+            serviceImplementation="com.github.faah.ExceptionDetectorService"/>
+
+        <!-- Hooks into every ConsoleView (run configs, tests, Gradle, Logcat) -->
+        <consoleFilterProvider
+            implementation="com.github.faah.ExceptionConsoleFilterProvider"/>
+
+    </extensions>
+
+    <actions>
+        <action id="Faah.ToggleMonitor"
+                class="com.github.faah.ToggleMonitorAction"
+                text="Monitor Exceptions"
+                description="Toggle exception sound alerts on or off">
+            <!-- New UI toolbar (IntelliJ 2022.3+) -->
+            <add-to-group group-id="MainToolbarRight" anchor="last"/>
+            <!-- Classic UI navbar toolbar -->
+            <add-to-group group-id="NavBarToolBar" anchor="last"/>
+            <!-- Also available under Tools menu -->
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+    </actions>
+
+    <!-- Attaches a ProcessListener to every run/debug process for output capture -->
+    <projectListeners>
+        <listener class="com.github.faah.TerminalOutputListener"
+                  topic="com.intellij.execution.ExecutionListener"/>
+    </projectListeners>
+
+</idea-plugin>
