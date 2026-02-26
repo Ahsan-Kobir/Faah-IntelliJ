@@ -1,8 +1,23 @@
 <idea-plugin>
     <id>com.github.faah</id>
     <name>Faah</name>
-    <vendor>Faah</vendor>
-    <description>Plays an alert sound when exceptions are detected in any console, terminal, or Logcat output.</description>
+    <vendor url="https://github.com/Ahsan-Kobir/Faah-IntelliJ" email="">Ahsan-Kobir</vendor>
+    <description><![CDATA[
+        <b>Faah</b> — Exception Sound Alerter<br><br>
+        Plays a custom sound alert whenever an exception, error, or fatal crash is detected
+        in any console, terminal, run configuration, or Android Logcat output.<br><br>
+        <b>Features:</b>
+        <ul>
+            <li>On/off toggle button in the toolbar</li>
+            <li>Monitors all console and terminal output for exceptions</li>
+            <li>Plays a sound alert on detection (with 2-second debounce to avoid spam)</li>
+            <li>Works with run configurations, tests, Gradle output, and Android Logcat</li>
+        </ul>
+        <b>Source:</b> <a href="https://github.com/Ahsan-Kobir/Faah-IntelliJ">GitHub</a>
+    ]]></description>
+    <change-notes><![CDATA[
+        <b>1.0.0</b> — Initial release.
+    ]]></change-notes>
 
     <depends>com.intellij.modules.platform</depends>
 

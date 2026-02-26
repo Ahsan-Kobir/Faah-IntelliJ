@@ -30,7 +30,13 @@ intellijPlatform {
         id = "com.github.faah"
         name = "Faah"
         version = "1.0.0"
-        description = "Plays an alert sound when exceptions appear in any console or Logcat output."
+        ideaVersion {
+            sinceBuild = "243"       // IntelliJ 2024.3
+            // untilBuild left unset — compatible with all future versions
+        }
+    }
+    publishing {
+        token = providers.gradleProperty("intellijPlatformPublishingToken")
     }
 }
 
