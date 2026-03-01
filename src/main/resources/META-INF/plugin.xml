@@ -17,6 +17,10 @@
         <b>Source:</b> <a href="https://github.com/Ahsan-Kobir/Faah-IntelliJ">GitHub</a>
     ]]></description>
     <change-notes><![CDATA[
+        <b>1.1.1</b>
+        <ul>
+            <li>Added plugin icon (light and dark variants)</li>
+        </ul>
         <b>1.1.0</b>
         <ul>
             <li>Added sidebar panel (Faah tool window) for controlling monitoring</li>

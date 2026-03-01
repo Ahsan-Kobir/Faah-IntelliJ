@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.faah"
-version = "1.1.0"
+version = "1.1.1"
 
 repositories {
     mavenCentral()
@@ -29,7 +29,7 @@ intellijPlatform {
     pluginConfiguration {
         id = "com.github.faah"
         name = "Faah"
-        version = "1.1.0"
+        version = "1.1.1"
         ideaVersion {
             sinceBuild = "243"       // IntelliJ 2024.3
             // untilBuild left unset — compatible with all future versions

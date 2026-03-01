@@ -19,7 +19,7 @@ private class ExceptionDetectionFilter : Filter {
         if (ExceptionDetectorService.getInstance().isExceptionLine(line)) {
             SoundPlayer.playAlert()
         }
-        // Return null to leave the line unmodified — we only want the side-effect
+        // Return null to leave the line unmodified — we only want the side effect
         return null
     }
 }
