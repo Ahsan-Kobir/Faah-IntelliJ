@@ -1,12 +1,14 @@
 package com.github.faah
 
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.components.Service
 import javazoom.jl.player.Player
 import java.awt.Toolkit
 
-object SoundPlayer {
+@Service(Service.Level.APP)
+class SoundPlayer {
 
-    private const val DEBOUNCE_MS = 2000L
+    private val DEBOUNCE_MS = 2000L
 
     @Volatile
     private var lastPlayTime = 0L
@@ -32,5 +34,10 @@ object SoundPlayer {
         val player = Player(stream)
         player.play()
         player.close()
+    }
+
+    companion object {
+        fun getInstance(): SoundPlayer =
+            ApplicationManager.getApplication().getService(SoundPlayer::class.java)
     }
 }

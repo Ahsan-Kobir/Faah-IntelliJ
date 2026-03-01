@@ -17,7 +17,7 @@ class ExceptionConsoleFilterProvider : ConsoleFilterProvider {
 private class ExceptionDetectionFilter : Filter {
     override fun applyFilter(line: String, entireLength: Int): Filter.Result? {
         if (ExceptionDetectorService.getInstance().isExceptionLine(line)) {
-            SoundPlayer.playAlert()
+            SoundPlayer.getInstance().playAlert()
         }
         // Return null to leave the line unmodified — we only want the side effect
         return null

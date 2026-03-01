@@ -40,6 +40,10 @@
         <applicationService
             serviceImplementation="com.github.faah.ExceptionDetectorService"/>
 
+        <!-- Sound player service — must be a service (not a Kotlin object) for dynamic plugin support -->
+        <applicationService
+            serviceImplementation="com.github.faah.SoundPlayer"/>
+
         <!-- Hooks into every ConsoleView (run configs, tests, Gradle, Logcat) -->
         <consoleFilterProvider
             implementation="com.github.faah.ExceptionConsoleFilterProvider"/>

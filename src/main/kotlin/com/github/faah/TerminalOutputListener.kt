@@ -25,7 +25,7 @@ class TerminalOutputListener : ExecutionListener {
         handler.addProcessListener(object : ProcessAdapter() {
             override fun onTextAvailable(event: ProcessEvent, outputType: Key<*>) {
                 if (ExceptionDetectorService.getInstance().isExceptionLine(event.text)) {
-                    SoundPlayer.playAlert()
+                    SoundPlayer.getInstance().playAlert()
                 }
             }
         })
