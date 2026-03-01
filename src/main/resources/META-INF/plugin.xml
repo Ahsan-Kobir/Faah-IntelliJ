@@ -8,14 +8,22 @@
         in any console, terminal, run configuration, or Android Logcat output.<br><br>
         <b>Features:</b>
         <ul>
-            <li>On/off toggle button in the toolbar</li>
+            <li>Sidebar panel to enable/disable monitoring and filter by error type</li>
             <li>Monitors all console and terminal output for exceptions</li>
             <li>Plays a sound alert on detection (with 2-second debounce to avoid spam)</li>
             <li>Works with run configurations, tests, Gradle output, and Android Logcat</li>
+            <li>Toggle also accessible via Tools menu</li>
         </ul>
         <b>Source:</b> <a href="https://github.com/Ahsan-Kobir/Faah-IntelliJ">GitHub</a>
     ]]></description>
     <change-notes><![CDATA[
+        <b>1.1.0</b>
+        <ul>
+            <li>Added sidebar panel (Faah tool window) for controlling monitoring</li>
+            <li>Per-type alert filters: Exception, Error, Fatal, Caused by, Stack frames</li>
+            <li>Sidebar checkbox stays in real-time sync with the Tools menu toggle via MessageBus</li>
+            <li>Removed toolbar button; toggle now lives in the sidebar and Tools menu</li>
+        </ul>
         <b>1.0.0</b> — Initial release.
     ]]></change-notes>
 
