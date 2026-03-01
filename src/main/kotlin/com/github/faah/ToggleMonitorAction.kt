@@ -1,14 +1,13 @@
 package com.github.faah
 
-import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.ToggleAction
 
 class ToggleMonitorAction : ToggleAction(
-    "Monitor Exceptions",
+    "Enable FAAH Alert",
     "Play a sound alert when exceptions are detected in any console output",
-    AllIcons.General.Error
+    null
 ) {
 
     override fun isSelected(e: AnActionEvent): Boolean =

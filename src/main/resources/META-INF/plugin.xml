@@ -23,13 +23,19 @@
 
     <extensions defaultExtensionNs="com.intellij">
 
-        <!-- Singleton service holding the enabled flag and exception pattern -->
+        <!-- Singleton service holding the enabled flag and active error types -->
         <applicationService
             serviceImplementation="com.github.faah.ExceptionDetectorService"/>
 
         <!-- Hooks into every ConsoleView (run configs, tests, Gradle, Logcat) -->
         <consoleFilterProvider
             implementation="com.github.faah.ExceptionConsoleFilterProvider"/>
+
+        <!-- Sidebar panel for controlling monitoring and error-type filters -->
+        <toolWindow id="Faah"
+                    anchor="right"
+                    factoryClass="com.github.faah.FaahToolWindowFactory"
+                    canCloseContents="false"/>
 
     </extensions>
 
@@ -38,11 +44,7 @@
                 class="com.github.faah.ToggleMonitorAction"
                 text="Monitor Exceptions"
                 description="Toggle exception sound alerts on or off">
-            <!-- New UI toolbar (IntelliJ 2022.3+) -->
-            <add-to-group group-id="MainToolbarRight" anchor="last"/>
-            <!-- Classic UI navbar toolbar -->
-            <add-to-group group-id="NavBarToolBar" anchor="last"/>
-            <!-- Also available under Tools menu -->
+            <!-- Accessible from Tools menu as a keyboard-friendly alternative to the sidebar -->
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>
