@@ -18,6 +18,10 @@
         <em>Keywords: Faah, Faaah, Faaaah, Faaaaah, exception alert, sound alert, error sound, crash sound, crash notification, exception sound, console alert, logcat alert</em>
     ]]></description>
     <change-notes><![CDATA[
+        <b>1.1.2</b>
+        <ul>
+            <li>Fixed plugin requiring IDE restart on install, update, or uninstall</li>
+        </ul>
         <b>1.1.1</b>
         <ul>
             <li>Added plugin icon (light and dark variants)</li>
