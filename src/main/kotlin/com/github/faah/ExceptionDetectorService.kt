@@ -1,32 +1,40 @@
 package com.github.faah
 
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.Service
+import com.intellij.openapi.components.State
+import com.intellij.openapi.components.Storage
 import com.intellij.util.messages.Topic
 
+@State(name = "FaahSettings", storages = [Storage("faah.xml")])
 @Service(Service.Level.APP)
-class ExceptionDetectorService {
+class ExceptionDetectorService : PersistentStateComponent<ExceptionDetectorService.State> {
 
-    // Listeners are notified whenever the master enabled flag changes
     fun interface EnabledListener {
         fun onEnabledChanged(enabled: Boolean)
     }
 
-    @Volatile
-    var isEnabled: Boolean = false
+    class State {
+        var enabled: Boolean = false
+        var volume: Int = 100
+        var enabledErrorTypes: MutableList<String> = ErrorType.entries.map { it.name }.toMutableList()
+    }
+
+    @Volatile private var _enabled: Boolean = false
+    @Volatile var volume: Int = 100
+        set(value) { field = value.coerceIn(0, 100) }
+    @Volatile private var enabledTypes: Set<ErrorType> = ErrorType.entries.toSet()
+    @Volatile private var pattern: Regex = buildPattern(enabledTypes)
+
+    var isEnabled: Boolean
+        get() = _enabled
         set(value) {
-            field = value
+            _enabled = value
             ApplicationManager.getApplication().messageBus
                 .syncPublisher(ENABLED_TOPIC)
                 .onEnabledChanged(value)
         }
-
-    // Immutable snapshot — replaced atomically on each change (safe for concurrent reads)
-    @Volatile
-    private var enabledTypes: Set<ErrorType> = ErrorType.entries.toSet()
-
-    @Volatile
-    private var pattern: Regex = buildPattern(enabledTypes)
 
     fun isTypeEnabled(type: ErrorType): Boolean = type in enabledTypes
 
@@ -39,9 +47,25 @@ class ExceptionDetectorService {
         isEnabled && pattern.containsMatchIn(line)
 
     private fun buildPattern(types: Set<ErrorType>): Regex {
-        if (types.isEmpty()) return Regex("(?!)")   // never matches
+        if (types.isEmpty()) return Regex("(?!)")
         val combined = types.joinToString("|") { "(${it.pattern})" }
         return Regex(combined, setOf(RegexOption.IGNORE_CASE, RegexOption.MULTILINE))
+    }
+
+    override fun getState() = State().also {
+        it.enabled = _enabled
+        it.volume = volume
+        it.enabledErrorTypes = enabledTypes.map { t -> t.name }.toMutableList()
+    }
+
+    override fun loadState(state: State) {
+        _enabled = state.enabled
+        volume = state.volume
+        enabledTypes = state.enabledErrorTypes
+            .mapNotNull { name -> ErrorType.entries.find { it.name == name } }
+            .toSet()
+            .ifEmpty { ErrorType.entries.toSet() }
+        pattern = buildPattern(enabledTypes)
     }
 
     companion object {
