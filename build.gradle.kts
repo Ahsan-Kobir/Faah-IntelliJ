@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.faah"
-version = "1.1.2"
+version = "1.1.3"
 
 repositories {
     mavenCentral()
@@ -21,15 +21,13 @@ dependencies {
         // Soft-depend on Android plugin for Logcat support (optional)
         // plugin("org.jetbrains.android")
     }
-    // MP3 decoder — javax.sound.sampled has no built-in MP3 support
-    implementation("javazoom:jlayer:1.0.1")
 }
 
 intellijPlatform {
     pluginConfiguration {
         id = "com.github.faah"
         name = "Faah"
-        version = "1.1.2"
+        version = "1.1.3"
         ideaVersion {
             sinceBuild = "243"       // IntelliJ 2024.3
             // untilBuild left unset — compatible with all future versions

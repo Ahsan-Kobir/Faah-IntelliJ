@@ -8,12 +8,14 @@ import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.content.ContentFactory
+import java.awt.Dimension
 import java.awt.FlowLayout
 import javax.swing.BorderFactory
 import javax.swing.Box
 import javax.swing.BoxLayout
 import javax.swing.JPanel
 import javax.swing.JSeparator
+import javax.swing.JSlider
 import javax.swing.SwingUtilities
 
 class FaahToolWindowFactory : ToolWindowFactory {
@@ -48,6 +50,25 @@ class FaahToolWindowFactory : ToolWindowFactory {
         )
 
         root.add(leftAlign(masterToggle))
+
+        root.add(Box.createVerticalStrut(10))
+        root.add(JSeparator())
+        root.add(Box.createVerticalStrut(10))
+
+        // ── Volume slider ─────────────────────────────────────────────────────
+        val volumeValueLabel = JBLabel("${service.volume}%")
+        val volumeSlider = JSlider(0, 100, service.volume)
+        volumeSlider.preferredSize = Dimension(160, volumeSlider.preferredSize.height)
+        volumeSlider.addChangeListener {
+            service.volume = volumeSlider.value
+            volumeValueLabel.text = "${volumeSlider.value}%"
+        }
+        val volumeRow = JPanel(FlowLayout(FlowLayout.LEFT, 0, 0))
+        volumeRow.add(JBLabel("Volume: "))
+        volumeRow.add(volumeSlider)
+        volumeRow.add(Box.createHorizontalStrut(6))
+        volumeRow.add(volumeValueLabel)
+        root.add(volumeRow)
 
         root.add(Box.createVerticalStrut(10))
         root.add(JSeparator())
